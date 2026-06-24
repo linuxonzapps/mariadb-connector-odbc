@@ -13,10 +13,12 @@ if [ -f /etc/os-release ]; then
 fi
 current_dir="$PWD"
 echo $DISTRO > .distro_zab.txt
-apt update; apt install sudo git -y
+apt update; apt install sudo git rpm -y
 # Clone linux-on-ibm-z to keep it current
 git clone https://github.com/linux-on-ibm-z/scripts.git /tmp/linux-on-ibm-z
 bash /tmp/linux-on-ibm-z-scripts/MariaDB-Connector-ODBC/${version}/build_mariadb_connector_odbc.sh -y
 cd mariadb-connector-odbc && make package
-mv mariadb-connector-odbc-${version}-linux-s390x.tar.gz ${current_dir}
+# Generate Debian and RPM packages
+cpack -G DEB && cpack -G RPM
+mv mariadb-connector-odbc-${version}-linux-s390x.* ${current_dir}
 exit 0
