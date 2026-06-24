@@ -6,4 +6,4 @@ overrides:
       build_script:
         repo_name: linux-on-ibm-z-scripts
         path: src/build.sh
-        docker_image: ubuntu:22.04nonroot
+        docker_image: ubuntu:22.04
